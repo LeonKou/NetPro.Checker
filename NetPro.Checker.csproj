@@ -1,0 +1,43 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<TargetFramework>$(NetCoreTargetVersion)</TargetFramework>
+		<Version>$(NetProChecker)</Version>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<Authors>$(Authors)</Authors>
+		<Description>
+			for checking the  complex environment of application in the microservice environment.
+			provide the system environment information of the current application.
+			and Checking the health of application information and components
+		</Description>
+		<PackageProjectUrl>$(PackageProjectUrl)</PackageProjectUrl>
+		<PackageIcon>$(PackageIcon)</PackageIcon>
+		<AssemblyName>$(NetProCheckerAssemblyName)</AssemblyName>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+		<DocumentationFile>bin\Debug\netcoreapp3.1\NetPro.Checker.xml</DocumentationFile>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+		<DocumentationFile>bin\Release\netcoreapp3.1\NetPro.Checker.xml</DocumentationFile>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<None Include="$(PackageIconPath)">
+			<Pack>True</Pack>
+			<PackagePath></PackagePath>
+		</None>
+	</ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="$(MicrosoftAspNetCoreHttpAbstractions)" />
+		<PackageReference Include="Microsoft.Extensions.Configuration" Version="3.1.8" />
+		<PackageReference Include="MongoDB.Driver" Version="2.11.1" />
+		<PackageReference Include="Newtonsoft.Json" Version="$(NewtonsoftJson)" />
+		<PackageReference Include="StackExchange.Redis" Version="2.1.58" />
+		<PackageReference Include="AspNetCore.HealthChecks.UI" Version="3.1.1" />
+		<PackageReference Include="AspNetCore.HealthChecks.UI.Client" Version="3.1.1" />
+	</ItemGroup>
+
+	<Target Name="CopyPackage" AfterTargets="Pack" Condition="'$(OS)' == 'Windows_NT' and Exists('$(SolutionDir)\PushNuget') and '$(Configuration)' == 'Release'">
+		<Copy SourceFiles="$(ProjectDir)\bin\Release\$(PackageId).$(PackageVersion).nupkg" DestinationFolder="$(SolutionDir)\PushNuget" />
+	</Target>
+</Project>
