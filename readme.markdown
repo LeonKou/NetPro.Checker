@@ -1,6 +1,5 @@
 
 ## Checker使用
- ![.NET Core](https://github.com/LeonKou/NetPro/workflows/.NET%20Core/badge.svg)
  [![NuGet](https://img.shields.io/nuget/v/NetPro.Checker.svg)](https://nuget.org/packages/NetPro.Checker)
 
 对Microsoft.AspNetCore.Diagnostics.HealthChecks的强化和redis，mongodb检查的完善
